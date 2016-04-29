@@ -7,4 +7,9 @@ _Desenvolver um jogo de dominó utilizando tecnologias web como trabalho semestr
 Este projeto seguirá a metodologia ensinada em sala de aula, aplicando princípios de PMI e Agile._
 
 ### Integrantes do Grupo
-* Nome : 9999999-9
+
+|Nome|Matrícula|
+|---|---|
+|Fulano da Silva|99988877|
+|Ciclano da Mata|123456789|
+|Joselito Cunha|5555555|
