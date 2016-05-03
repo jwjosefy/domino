@@ -1,7 +1,108 @@
-﻿@model dynamic
+﻿@using System.Web.UI.WebControls
+@model DominoApp.DomainModel.Common.DominoSettings
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Configurações - DominoApp";
+    string sizeLabel = "col-sm-3", sizeValue = "col-sm-9";
 }
 
-<h2>Domino App - Admin Dashboard</h2>
+<h2>@ViewBag.Title</h2><br/>
+
+
+<div class="row">
+    <form action="@Url.Action("Save")" method="post" class="form-horizontal">
+
+        <div class="form-group">
+            <label class="control-label @sizeLabel">Bônus Novo Cadastro</label>
+            <div class="@sizeValue">
+                <input type="number" name="BonusNovoCadastro" value=@Model.BonusNovoCadastro class="form-control"
+                       title="Pontuação que o usuário ganhará ao se cadastrar no jogo"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label @sizeLabel">LoginStreakBonus</label>
+            <div class="@sizeValue">
+                <input type="number" name="LoginStreakBonus" value=@Model.LoginStreakBonus class="form-control"
+                       title="Pontuação que o usuário ganhará por logins consecutivos"/>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label @sizeLabel">LoginStreakQtdDias</label>
+            <div class="@sizeValue">
+                <input type="number" name="LoginStreakQtdDias" value=@Model.LoginStreakQtdDias class="form-control"
+                       title="Qtd de dias consecutivos que o usuário precisa logar para ganhar o bônus"/>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label @sizeLabel">BonusEmailAmigo</label>
+            <div class="@sizeValue">
+                <input type="number" name="BonusEmailAmigo" value=@Model.BonusEmailAmigo class="form-control"
+                       title="Qtd de pontos que o usuário ganha por cada amigo indicado por email"/>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label @sizeLabel">VitoriaSeguidaBonus</label>
+            <div class="@sizeValue">
+                <input type="number" name="VitoriaSeguidaBonus" value=@Model.VitoriaSeguidaBonus class="form-control"
+                       title="Pontuação que o usuário ganhará por vitórias consecutivas"/>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label @sizeLabel">VitoriaSeguidaQtd</label>
+            <div class="@sizeValue">
+                <input type="number" name="VitoriaSeguidaQtd" value=@Model.VitoriaSeguidaQtd class="form-control"
+                       title="Qtd de vitórias consecutivas necessárias para o usuário ganhar o bônus"/>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label @sizeLabel">CompraMinimaRemovePropaganda</label>
+            <div class="@sizeValue">
+                <input type="number" name="CompraMinimaRemovePropaganda" value=@Model.CompraMinimaRemovePropaganda class="form-control"
+                       title="Qtd mínima de créditos que o usuário precisa comprar para eliminar as propagandas"/>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label @sizeLabel">DiasSemPropaganda</label>
+            <div class="@sizeValue">
+                <input type="number" name="DiasSemPropaganda" value=@Model.DiasSemPropaganda class="form-control"
+                       title="Qtd de dias que o usuário não verá as propagandas após fazer uma compra"/>
+            </div>
+
+        </div>
+
+
+        <div class="col-sm-offset-3">
+            <input type="submit" class="btn btn-primary" value="Salvar" />
+        </div>
+
+        @Html.AntiForgeryToken()
+    </form>
+</div>
+
+
+
+@section scripts
+{
+<script type="text/javascript">
+    $(function() {
+        $('input[class="form-control"]')
+            .attr('data-toggle', 'tooltip')
+            .attr('data-placement', 'bottom')
+            .tooltip();
+        $('input[name=BonusNovoCadastro]').focus();
+    });
+</script>
+}

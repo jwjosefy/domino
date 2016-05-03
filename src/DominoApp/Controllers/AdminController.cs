@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DominoApp.DomainModel.Common;
 using DominoApp.Services;
 
 
@@ -20,12 +21,27 @@ namespace DominoApp.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return RedirectToAction("dashboard");
+            return RedirectToAction("Dashboard");
         }
 
         public ActionResult Dashboard()
         {
-            return View();
+            var settings = _backOfficeRepository.GetDominoSettings();
+
+            return View(settings);
+        }
+
+        /// <summary>
+        /// Salva as alterações de config no BD
+        /// </summary>
+        /// <param name="settings"></param>
+        /// <returns></returns>
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Save(DominoSettings settings)
+        {
+            _backOfficeRepository.SaveDominoSettings(settings);
+
+            return RedirectToAction("Dashboard");
         }
     }
 }
