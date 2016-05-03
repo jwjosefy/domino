@@ -260,6 +260,16 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DominoApp.DomainModel\DominoApp.DomainModel.csproj">
+      <Project>{f0be6fb3-154d-4fec-a62b-a9bffd3d67cd}</Project>
+      <Name>DominoApp.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DominoApp.Services\DominoApp.Services.csproj">
+      <Project>{79032237-8826-4b11-bf08-e1d2673e0393}</Project>
+      <Name>DominoApp.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
