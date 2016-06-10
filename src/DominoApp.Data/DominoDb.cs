@@ -1,15 +1,22 @@
+using System;
+using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+
 namespace DominoApp.Data
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class DominoDb : DbContext
     {
+        static DominoDb()
+        {
+            // Precisa fazer isso para evitar que o database seja recriado ao reinicializar
+            Database.SetInitializer<DominoDb>(null);
+        }
+
         public DominoDb()
             : base("name=DominoDb")
         {
+            Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<Campaign> Campaign { get; set; }
@@ -100,5 +107,7 @@ namespace DominoApp.Data
                 .HasForeignKey(e => e.User_id)
                 .WillCascadeOnDelete(false);
         }
+
+
     }
 }
