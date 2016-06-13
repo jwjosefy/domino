@@ -20,7 +20,13 @@ namespace DominoApp.Hubs
 
         public void Abandon(string payload)
         {
-            
+           
+        }
+
+        public override Task OnConnected()
+        {
+
+            return base.OnConnected();
         }
 
         public override Task OnDisconnected(bool stopCalled)
