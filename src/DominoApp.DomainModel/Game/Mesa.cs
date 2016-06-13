@@ -70,6 +70,18 @@ namespace DominoApp.DomainModel.Game
         }
 
         /// <summary>
+        /// Devolve uma mão inicial com 7 pedras para um jogador
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public List<Pedra> CommprarMao(int count = 7)
+        {
+            var mao = Monte.Take(count).ToList();
+            Monte = new Stack<Pedra>(Monte.Skip(count));
+            return mao;
+        } 
+
+        /// <summary>
         /// Executa uma jogada, adicionando a pedra na mesa em alguma ponta
         /// </summary>
         /// <param name="pedra">Qual é a pedra</param>
@@ -101,7 +113,8 @@ namespace DominoApp.DomainModel.Game
                 var pedra = _pedrasJogadas.First.Value;
 
                 // Sempre devolve o maior lado como sendo a ponta da esquerda
-                // para iniciar o jogo
+                // para iniciar o jogo.
+                // 'Pedra' é definido para ter sempre o Lado2 >= Lado1
 
                 return lado == Lado.Esquerdo ? pedra.Lado2 : pedra.Lado1;
             }

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\DominoSettings.cs" />
+    <Compile Include="Game\Jogador.cs" />
     <Compile Include="Game\JogoDomino.cs" />
     <Compile Include="Game\Mesa.cs" />
     <Compile Include="Game\Partida.cs" />

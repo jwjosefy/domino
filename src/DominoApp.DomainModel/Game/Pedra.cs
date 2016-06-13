@@ -46,13 +46,38 @@ namespace DominoApp.DomainModel.Game
 
         public static Pedra FromString(string pedra)
         {
-            var lados = pedra.Split('x');
-            return new Pedra(Convert.ToInt32(lados[0]), Convert.ToInt32(lados[1]));
+            var lados = pedra.Split('x').Select(x => Convert.ToInt32(x)).ToList();
+            return new Pedra(lados[0], lados[1]);
         }
 
         public override string ToString()
         {
             return $"{Lado1}x{Lado2}";
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        protected bool Equals(Pedra other)
+        {
+            return Lado1 == other.Lado1 && Lado2 == other.Lado2;
+        }
+
+        public override int GetHashCode()
+        {
+            return Lado1*7 + Lado2;
+        }
+
+        public static bool operator ==(Pedra left, Pedra right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Pedra left, Pedra right)
+        {
+            return !Equals(left, right);
         }
     }
 }
