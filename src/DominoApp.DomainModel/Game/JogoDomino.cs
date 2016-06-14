@@ -22,6 +22,11 @@ namespace DominoApp.DomainModel.Game
         {
         }
 
+        /// <summary>
+        /// Inicializa uma nova partida
+        /// </summary>
+        /// <param name="jogadores"></param>
+        /// <returns></returns>
         public static JogoDomino NovoJogo(params string[] jogadores)
         {
             var jogo = new JogoDomino();
@@ -48,12 +53,37 @@ namespace DominoApp.DomainModel.Game
         /// <param name="idJogador">nome de usuário</param>
         /// <param name="pedra">qual é a pedra NxN</param>
         /// <param name="lado">'e'squerdo ou 'd'ireito</param>
-        public void Jogar(string idJogador, string pedra, string lado)
+        public StatusJogo Jogar(string idJogador, string pedra, string lado)
         {
             var jogador = Jogadores.First(j => j.Id == idJogador);
             jogador.Jogar(pedra);
             var eLado = lado == "e" ? Mesa.Lado.Esquerdo : Mesa.Lado.Direito;
             Mesa.Jogar(Pedra.FromString(pedra), eLado);
+
+            var oponente = Jogadores.First(j => j.Id != idJogador);
+
+            return new StatusJogo()
+            {
+                Id = this.Id,
+                Mao = jogador.Mao,
+                Mesa = Mesa.PedrasJogadas.ToList(),
+                PontaEsquerda = Mesa.PontaEsquerda,
+                PontaDireita = Mesa.PontaDireita,
+                TotalPedrasMonte = Mesa.Monte.Count,
+                TotalPedrasOponente = oponente.Mao.Count
+            };
+        }
+
+
+        public struct StatusJogo
+        {
+            public string Id;
+            public List<Pedra> Mao;
+            public List<Pedra> Mesa;
+            public int PontaEsquerda;
+            public int PontaDireita;
+            public int TotalPedrasMonte;
+            public int TotalPedrasOponente;
         }
     }
 }

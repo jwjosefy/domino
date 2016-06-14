@@ -28,9 +28,28 @@ namespace DominoApp.DomainModel.Game
             Mao.Remove(pedra);
         }
 
+        /// <summary>
+        /// Adiciona uma pedra comprada na mão do jogador
+        /// </summary>
+        /// <param name="pedra"></param>
         public void Adicionar(Pedra pedra)
         {
             Mao.Add(pedra);
+        }
+
+        /// <summary>
+        /// Verifica quais são as pedras possíveis de serem jogadas para as pontas informadas
+        /// </summary>
+        /// <param name="pEsquerda"></param>
+        /// <param name="pDireita"></param>
+        /// <returns></returns>
+        public List<Pedra> ObterJogadasPossiveis(int pEsquerda, int pDireita)
+        {
+            var pontas = new[] {pEsquerda, pDireita};
+
+            return Mao
+                .Where(p => pontas.Contains(p.Lado1) || pontas.Contains(p.Lado2))
+                .ToList();
         }
     }
 }

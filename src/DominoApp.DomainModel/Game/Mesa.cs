@@ -97,7 +97,7 @@ namespace DominoApp.DomainModel.Game
             var ponta = ObterPonta(lado);
 
             if (!pedra.PodeJogar(ponta))
-                throw new InvalidOperationException($"Não pode jogar a pedra {pedra} numa ponta {ponta}");
+                throw new InvalidOperationException($"Não pode jogar a pedra {pedra} numa ponta {ponta}, lado {lado}");
 
             if (lado == Lado.Esquerdo)
             {
