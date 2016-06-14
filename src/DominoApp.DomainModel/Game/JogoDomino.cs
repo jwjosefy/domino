@@ -74,7 +74,15 @@ namespace DominoApp.DomainModel.Game
             };
         }
 
+        public void ComprarPedra(string idJogador)
+        {
+            var jogador = Jogadores.First(j => j.Id == idJogador);
+            jogador.Adicionar(Mesa.ComprarPedra());
+        }
 
+        /// <summary>
+        /// Estrutura com estado do jogo devolvido para o player que executou um movimento
+        /// </summary>
         public struct StatusJogo
         {
             public string Id;

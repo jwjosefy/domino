@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 using DominoApp.DomainModel.Game;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -48,13 +49,21 @@ namespace DominoApp.Tests
             var j1 = jogo.Jogadores[0];
             var p1 = j1.Mao[0];
 
-            jogo.Jogar("player1", p1.ToString(), "e");
+            var s1 = jogo.Jogar("player1", p1.ToString(), "e");
+
+            var j2 = jogo.Jogadores[1];
+            List<Pedra> jogadas;
+
+            while (!(jogadas = j2.ObterJogadasPossiveis(jogo.Mesa.PontaEsquerda, jogo.Mesa.PontaDireita)).Any())
+            {
+                jogo.ComprarPedra(j2.Id);
+            }
 
             Assert.AreEqual(j1.Mao.Count, 6);
             Assert.AreEqual(jogo.Mesa.PedrasJogadas.Count, 1);
             Assert.AreEqual(jogo.Mesa.PontaEsquerda, p1.Lado2);
 
-            Assert.IsTrue(true);
+            var s2 = jogo.Jogar("player2", jogadas[0].ToString(), "d");
         }
 
         [TestMethod]
