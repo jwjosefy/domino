@@ -58,7 +58,7 @@ namespace DominoApp.DomainModel.Game
             var jogador = Jogadores.First(j => j.Id == idJogador);
             jogador.Jogar(pedra);
             var eLado = lado == "e" ? Mesa.Lado.Esquerdo : Mesa.Lado.Direito;
-            Mesa.Jogar(Pedra.FromString(pedra), eLado);
+            Mesa.Jogar(pedra, eLado);
 
             var oponente = Jogadores.First(j => j.Id != idJogador);
 

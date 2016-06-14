@@ -50,6 +50,11 @@ namespace DominoApp.DomainModel.Game
             return new Pedra(lados[0], lados[1]);
         }
 
+        public static implicit operator Pedra(string p)
+        {
+            return Pedra.FromString(p);
+        }
+
         public override string ToString()
         {
             return $"{Lado1}x{Lado2}";

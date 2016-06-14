@@ -69,8 +69,7 @@ namespace DominoApp.Tests
         [TestMethod]
         public void TestPedrasEq()
         {
-            var p1 = Pedra.FromString("6x2");
-            var p2 = Pedra.FromString("2x6");
+            Pedra p1 = "6x2", p2 = "2x6";
 
             Assert.AreEqual(p1, p2);
         }

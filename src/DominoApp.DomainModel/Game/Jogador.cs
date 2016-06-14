@@ -22,9 +22,8 @@ namespace DominoApp.DomainModel.Game
         /// </summary>
         public int Pontos { get; set; }
 
-        public void Jogar(string sPedra)
+        public void Jogar(string pedra)
         {
-            var pedra = Pedra.FromString(sPedra);
             Mao.Remove(pedra);
         }
 

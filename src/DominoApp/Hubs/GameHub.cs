@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using DominoApp.Services;
 using Microsoft.AspNet.SignalR;
 
 namespace DominoApp.Hubs
@@ -12,6 +13,15 @@ namespace DominoApp.Hubs
     /// </summary>
     public class GameHub : Hub
     {
+        /// <summary>
+        /// Método chamado pelo jogador para sinalizar que está disponível para jogar
+        /// </summary>
+        /// <param name="idJogador"></param>
+        public void WaitStart(string idJogador)
+        {
+            DominoManager.Instance.AdicionarJogadorFilaEspera(idJogador, Context.ConnectionId);
+        }
+
         public void Play(string payload)
         {
             Clients.All.hello();
