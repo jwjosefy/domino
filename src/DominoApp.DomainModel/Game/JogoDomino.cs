@@ -62,11 +62,24 @@ namespace DominoApp.DomainModel.Game
 
             var oponente = Jogadores.First(j => j.Id != idJogador);
 
+            return ObterStatusJogo(idJogador);
+        }
+
+        /// <summary>
+        /// Devolve o status do jogo como deve ser visível ao jogador que solicitou
+        /// </summary>
+        /// <param name="idJogador"></param>
+        /// <returns></returns>
+        public StatusJogo ObterStatusJogo(string idJogador)
+        {
+            var jogador = Jogadores.First(j => j.Id == idJogador);
+            var oponente = Jogadores.First(j => j.Id != jogador.Id);
+
             return new StatusJogo()
             {
                 Id = this.Id,
-                Mao = jogador.Mao,
-                Mesa = Mesa.PedrasJogadas.ToList(),
+                Mao = jogador.Mao.Select(p=>p.ToString()).ToList(),
+                Mesa = Mesa.PedrasJogadas.Select(p=>p.ToString()).ToList(),
                 PontaEsquerda = Mesa.PontaEsquerda,
                 PontaDireita = Mesa.PontaDireita,
                 TotalPedrasMonte = Mesa.Monte.Count,
@@ -80,14 +93,16 @@ namespace DominoApp.DomainModel.Game
             jogador.Adicionar(Mesa.ComprarPedra());
         }
 
+
+
         /// <summary>
         /// Estrutura com estado do jogo devolvido para o player que executou um movimento
         /// </summary>
         public struct StatusJogo
         {
             public string Id;
-            public List<Pedra> Mao;
-            public List<Pedra> Mesa;
+            public IEnumerable<string> Mao;
+            public IEnumerable<string> Mesa;
             public int PontaEsquerda;
             public int PontaDireita;
             public int TotalPedrasMonte;

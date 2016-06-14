@@ -22,6 +22,17 @@ namespace DominoApp.Hubs
             DominoManager.Instance.AdicionarJogadorFilaEspera(idJogador, Context.ConnectionId);
         }
 
+        /// <summary>
+        /// Cliente solicita o status do jogo
+        /// </summary>
+        /// <param name="jogador"></param>
+        /// <param name="idJogo"></param>
+        public void GetGameStatus(string jogador, string idJogo)
+        {
+            var status = DominoManager.Instance.ObterJogo(idJogo).ObterStatusJogo(jogador);
+            Clients.Caller.StatusGame(status);
+        }
+
         public void Play(string payload)
         {
             Clients.All.hello();

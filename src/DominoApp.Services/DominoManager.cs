@@ -8,6 +8,9 @@ using DominoApp.DomainModel.Game;
 
 namespace DominoApp.Services
 {
+    /// <summary>
+    /// Regras de negócio para controlar o estado dos jogos e a fila de espera
+    /// </summary>
     public class DominoManager
     {
         #region Singleton
@@ -74,10 +77,10 @@ namespace DominoApp.Services
         }
 
         /// <summary>
-        /// Recupera o próximo jogador na fila de espera
+        /// Recupera o próximo jogador na fila de espera, devolvendo o id do oponente se houver
         /// </summary>
         /// <returns></returns>
-        public string ProximoNaFila()
+        public Tuple<string, string> ProximoNaFila()
         {
             if (FilaEsperaJogadores.IsEmpty) return null;
 
@@ -85,7 +88,7 @@ namespace DominoApp.Services
             var jogador = FilaEsperaJogadores.First().Key;
             FilaEsperaJogadores.TryRemove(jogador, out idConnJogador);
 
-            return jogador;
+            return Tuple.Create(jogador, idConnJogador);
         }
 
         /// <summary>

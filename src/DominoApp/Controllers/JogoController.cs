@@ -45,12 +45,23 @@ namespace DominoApp.Controllers
         {
             var jogador = HttpContext.User.Identity.GetUserId();
             var domino = DominoManager.Instance;
-            string connIdOponente;
+            Tuple<string, string> oponente;
 
-            if ((connIdOponente = domino.ProximoNaFila()) != null)
+            if ((oponente = domino.ProximoNaFila()) == null)
             {
-                
+                // ninguém na fila, coloca o próprio jogador na espera
+                // devolve status wait no ajax para o cliente saber que deve chamar 
+                // a fila via hub do SignalR
+                return Json(new {status = "wait"});
             }
+
+            // achou o próximo na fila, inicia o jogo
+            var hub = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
+
+            var jogo = domino.CriarJogo(jogador, oponente.Item1);
+
+            hub.Clients.Client(oponente.Item2).OnStart(jogo.Id, jogador, oponente);
+            return Json(new { status = "ok", id = jogo.Id });
         }
     }
 }
