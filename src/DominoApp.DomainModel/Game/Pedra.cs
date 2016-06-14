@@ -8,8 +8,8 @@ namespace DominoApp.DomainModel.Game
 {
     public class Pedra
     {
-        public int Lado1 { get; private set; }
-        public int Lado2 { get; private set; }
+        public int Lado1 { get; }
+        public int Lado2 { get; }
 
         public Pedra(int lado1, int lado2)
         {
@@ -57,7 +57,10 @@ namespace DominoApp.DomainModel.Game
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Pedra) obj);
         }
 
         protected bool Equals(Pedra other)
@@ -67,7 +70,7 @@ namespace DominoApp.DomainModel.Game
 
         public override int GetHashCode()
         {
-            return Lado1*7 + Lado2;
+            return (Lado1*397) ^ Lado2;
         }
 
         public static bool operator ==(Pedra left, Pedra right)

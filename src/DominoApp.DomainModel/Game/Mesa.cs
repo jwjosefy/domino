@@ -74,7 +74,7 @@ namespace DominoApp.DomainModel.Game
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public List<Pedra> CommprarMao(int count = 7)
+        public List<Pedra> ComprarMao(int count = 7)
         {
             var mao = Monte.Take(count).ToList();
             Monte = new Stack<Pedra>(Monte.Skip(count));
@@ -88,6 +88,12 @@ namespace DominoApp.DomainModel.Game
         /// <param name="lado">Em qual ponta a pedra será jogada</param>
         public void Jogar(Pedra pedra, Lado lado)
         {
+            if (_pedrasJogadas.Count == 0)
+            {
+                _pedrasJogadas.AddFirst(pedra);
+                return;
+            }
+
             var ponta = ObterPonta(lado);
 
             if (!pedra.PodeJogar(ponta))

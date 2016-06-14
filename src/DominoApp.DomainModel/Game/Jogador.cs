@@ -8,6 +8,11 @@ namespace DominoApp.DomainModel.Game
 {
     public class Jogador
     {
+        public Jogador(string idJogador)
+        {
+            Id = idJogador;
+        }
+
         public string Id { get; set; }
 
         public List<Pedra> Mao { get; set; }
